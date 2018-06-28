@@ -1,0 +1,37 @@
+#home-title {
+  padding-top: 25px;
+}
+
+#main-title {
+  padding-top: 25px;
+}
+
+
+#ports-heading {
+  padding-top: 20px;
+}
+
+#ports {
+
+}
+
+#port-table {
+  padding-bottom: 5px;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+#add-ports {
+
+}
+
+#portChanges {
+  padding-top: 50px;
+}
+
+main-end-text {
+  margin: auto;
+  width: 50%;
+}

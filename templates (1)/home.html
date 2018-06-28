@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h1 id="home-title">Home <small>Welcome {{session.username}}</small></h1>
+<hr>
+
+<h3 id="power-state-heading"><small>Servers Power States</small></h3>
+
+
+
+<h3 id="ports-heading"><small>Ports and Services</small></h3>
+
+<div id="port-table" class="container">
+  <table class="table table-hover table-dark">
+    <tr>
+      <th>ID</th>
+      <th>IP Address</th>
+      <th>Port</th>
+      <th>State</th>
+    </tr>
+    {% set count = [0] %}
+    {% for portcheck in portcheck %}
+      <tr>
+        <td>{{ portcheck.id }}</td>
+        <td>{{ portcheck.IPAdress }}</td>
+        <td>{{ portcheck.Port }}</td>
+        <td><strong>{{ state[count[0]] }}</strong></td>
+        <td><a href="editPort/{{ portcheck.id }}" class="btn btn-default pullright">Edit</a></td>
+        <td>
+          <form action="{{ url_for('deleteIP', id=portcheck.id) }}" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="Delete" class="btn btn-danger">
+          </form>
+        </td>
+      </tr>
+      {% if count.append(count.pop() + 1) %}{% endif %}
+    {% endfor %}
+  </table>
+</div>
+
+<div id="add-ports" class="container">
+  <a class="btn btn-success" href="/addPorts">Add</a>
+</div>
+
+<div id="portChanges" class="container">
+  <p>A log of port state chnages will go here</p>
+</div>
+{% endblock %}
