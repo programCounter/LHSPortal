@@ -14,7 +14,7 @@ app.debug = True
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'yeet'
-app.config['MYSQL_DB'] = 'myflaskapp'
+app.config['MYSQL_DB'] = 'LHSWeb'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 #Init MYSQL
@@ -130,6 +130,23 @@ def register():
     return render_template('register.html', form=form, pagename=pagename)
 
 
+#My Account
+
+@app.route('/My_Account')
+@is_logged_in
+def My_Account():
+    pagename = ': My Account'
+
+    #Make user login again
+
+    return render_template('My_Account.html', pagename=pagename)
+
+@app.route('/Edit_Account/<string:id>', methods=['GET', 'POST'])
+@is_logged_in
+def Edit_Account(id):
+    pagename = ': Edit Account'
+
+
 #Dashbord
 
 @app.route('/Home')
@@ -145,7 +162,7 @@ def Home():
     portcheck = cur.fetchall()
 
     if results > 0:
-        cur.execute("SELECT IPAdress FROM portcheck")
+        cur.execute("SELECT IPAddress FROM portcheck")
         IPs = []
 
         for row in cur:
@@ -157,14 +174,20 @@ def Home():
         for row in cur:
             Ports.append(row)
 
+        cur.execute("SELECT ServiceName FROM portcheck")
+        Service = []
+
+        for row in cur:
+            Service.append(row)
+
         i = 0
         state = []
         for row in cur:
-            stat = check((IPs[i]["IPAdress"]), (Ports[i]["Port"]))
+            stat = check((IPs[i]["IPAddress"]), (Ports[i]["Port"]))
             state.append(stat)
             i = i + 1
         app.logger.info('Port Check Script ran.')
-        return render_template('home.html', pagename=pagename, portcheck=portcheck, state=state)
+        return render_template('home.html', pagename=pagename, portcheck=portcheck, state=state, Service=Service)
     else:
         msg = 'NO DATA FOUND'
         app.logger.info('No ports to check, database empty or not connected?')
@@ -179,6 +202,7 @@ def Home():
 class AddressForm(Form):
     IPAddress = StringField('IP Address', [validators.Length(min=1, max=50)])
     port = StringField('Port')
+    ServiceName = StringField('ServiceName')
 
 @app.route('/addPorts', methods=['GET', 'POST'])
 @is_logged_in
@@ -188,12 +212,13 @@ def addPorts():
     if request.method == 'POST' and form.validate():
         IPAddress = form.IPAddress.data
         port = form.port.data
+        ServiceName = form.ServiceName.data
 
         #Create Cursor
         cur = mysql.connection.cursor()
 
         #Execute
-        cur.execute("INSERT INTO portcheck(IPAdress, Port) VALUES(%s, %s)", (IPAddress, port))
+        cur.execute("INSERT INTO portcheck(IPAddress, Port, ServiceName) VALUES(%s, %s, %s)", (IPAddress, port, ServiceName))
 
         #Commit to DB
         mysql.connection.commit()
@@ -223,10 +248,12 @@ def editPort(id):
     form = AddressForm(request.form)
 
     #Populate feilds
-    form.IPAddress.data = Edit["IPAdress"]
+    form.ServiceName.data = Edit["ServiceName"]
+    form.IPAddress.data = Edit["IPAddress"]
     form.port.data = Edit["Port"]
 
     if request.method == 'POST' and form.validate():
+        ServiceName = request.form['ServiceName']
         IPAddress = request.form['IPAddress']
         port = request.form['port']
 
@@ -234,7 +261,7 @@ def editPort(id):
         cur = mysql.connection.cursor()
 
         #Execute
-        cur.execute("UPDATE portcheck SET IPAdress=%s, Port=%s WHERE id=%s", (IPAddress, port, [id]))
+        cur.execute("UPDATE portcheck SET ServiceName=%s, IPAddress=%s, Port=%s WHERE id=%s", (ServiceName, IPAddress, port, [id]))
 
         #Commit changes
         mysql.connection.commit()
@@ -243,7 +270,7 @@ def editPort(id):
         #Close connection
         cur.close()
 
-        flash('IP and Port Updated!', 'success')
+        flash('Service Updated!', 'success')
         return redirect(url_for('Home'))
     return render_template('editPort.html', form=form)
 
@@ -276,4 +303,4 @@ def mainPage():
 
 if __name__ == '__main__':
     app.secret_key='secret123'
-    app.run()
+    app.run(host = '192.168.0.140', port = 5001)
