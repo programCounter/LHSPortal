@@ -15,6 +15,7 @@ A online portal for administration and service checking of my personal home serv
   <li>Page and ability to chnage user credentials</li>
   <li>Active Services page (public page)</li>
   <li>Version number or build on about page</li>
+  <li>Cancel Button on port edit page</li>
 </ol>
 
 <b>Other possible features:</b>
