@@ -34,7 +34,6 @@ def is_logged_in(f):
 
 
 #User Login/logout
-
 @app.route('/login', methods=['GET', 'POST'])
 def logIn():
     pagename = ': Login'
@@ -52,21 +51,29 @@ def logIn():
         if result > 0:
             #Get stored hash
             data = cur.fetchone()
+            name = data['name']
+            email = data['email']
+            userID = data['id']
             password = data['password']
 
             #Compare Passwords
             if sha256_crypt.verify(passwordCandidate, password):
                 session['logged_in'] = True
                 session['username'] = username
+                session['name'] = name
+                session['email'] = email
+                session['userID'] = userID
                 flash('You are now logged in!', 'success')
                 return redirect(url_for('Home'))
                 app.logger.info('PASSWORD MATCHED')
                 app.logger.info('User logged in!')
+                app.logger.info('Session Data Updated')
             else:
                 error = 'Invalid login'
-                return render_template('login.html', error=error)
+                return render_template('logIn.html', error=error)
                 app.logger.info('PASSWORD NOT MATCHED')
                 app.logger.info('User login failed!')
+                app.logger.info('Session data unchanged')
             #Close MySQL connection
             cur.close()
 
@@ -85,11 +92,11 @@ def logout():
     session.clear()
     flash('You are now logged out.', 'success')
     app.logger.info('User logged out.')
+    app.logger.info('Session data cleared')
     return redirect(url_for('logIn'))
 
 
 #User Registration
-
 class RegisterForm(Form):
     name = StringField('Name', [validators.Length(min=1, max=50)])
     username = StringField('Username', [validators.Length(min=4, max=25)])
@@ -130,25 +137,115 @@ def register():
     return render_template('register.html', form=form, pagename=pagename)
 
 
-#My Account
-
+#Edit Account
 @app.route('/My_Account')
 @is_logged_in
 def My_Account():
     pagename = ': My Account'
 
-    #Make user login again
 
     return render_template('My_Account.html', pagename=pagename)
+
+#@app.route('/My_Account_verify', methods=['GET', 'POST'])
+#@is_logged_in
+#def My_Account_verify():
+#    pagename = ': Edit Account'
+#
+#    #Confirm User
+#    if request.method == 'POST':
+#        #Get form Feilds
+#        username = request.form['username']
+#        passwordCandidate = request.form['password']
+#
+#        #Create cursor
+#        cur = mysql.connection.cursor()
+#
+#        #Get user by username
+#        result = cur.execute("SELECT * FROM users WHERE username = %s", [username])
+#
+#        if result > 0:
+#            #Get stored hash
+#            data = cur.fetchone()
+#            password = data['password']
+#
+#            #Compare Passwords
+#            if sha256_crypt.verify(passwordCandidate, password):
+#                flash('Verified!', 'success')
+#                return redirect(url_for('Edit_Account'))
+#                app.logger.info('PASSWORD MATCHED')
+#                app.logger.info('User verified. Redirecting...')
+#            else:
+#                error = 'Invalid login'
+#                return render_template('My_Account.html', error=error)
+#                app.logger.info('PASSWORD NOT MATCHED')
+#                app.logger.info('User verify FAIL')
+#            #Close MySQL connection
+#            cur.close()
+#
+#        else:
+#            error = 'Username not found'
+#            return render_template('My_Account.html', error=error)
+#            app.logger.info('NO USER')
+#            app.logger.info('User verify FAIL')
+#
+#    return render_template('My_Acount_verify.html', pagename=pagename)
 
 @app.route('/Edit_Account/<string:id>', methods=['GET', 'POST'])
 @is_logged_in
 def Edit_Account(id):
     pagename = ': Edit Account'
 
+    #Create cursor
+    cur = mysql.connection.cursor()
+
+    #Get all data matching user id
+    result = cur.execute("SELECT * from users WHERE id= %s", [id])
+    Edit = cur.fetchone()
+
+    #Close Cursor
+    cur.close()
+
+    #Get form
+    form = RegisterForm(request.form)
+
+    #Populate feilds
+    #Password can not be shown. sha256_crypt is a one way cryptography.
+    form.name.data = Edit['name']
+    form.username.data = Edit['username']
+    form.email.data = Edit['email']
+
+
+    #If changes are made update the database
+    if request.method == 'POST' and form.validate():
+        name = request.form['name']
+        username = request.form['username']
+        email = request.form['email']
+        password = sha256_crypt.encrypt(str(request.form['password']))
+
+        app.logger.info(name)
+        app.logger.info(username)
+        app.logger.info(email)
+        app.logger.info(password)
+
+        #Create cursor
+        cur = mysql.connection.cursor()
+
+        #Execute changes
+        cur.execute("UPDATE users SET name=%s, username=%s, email=%s, password=%s WHERE id=%s", (name, username, email, password, [id]))
+
+        #Commit changes
+        mysql.connection.commit()
+        app.logger.info('User changes commited to database.')
+
+        #Close Cursor
+        cur.close()
+
+        return redirect(url_for('My_Account'))
+
+    return render_template('Edit_Account.html', pagename=pagename, form=form)
+
 
 #Dashbord
-
 @app.route('/Home')
 @is_logged_in
 def Home():
