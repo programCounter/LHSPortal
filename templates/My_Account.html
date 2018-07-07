@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h1 id="home-title"> <small> {{session.username}}</small></h1>
+<hr>
+
+<div class="container" id="account-information">
+  <h3>Account information</h3>
+
+  <p><strong>Username: </strong>{{ session.username }}</p>
+  <p><strong>Name: </strong>{{ session.name }}</p>
+  <p><strong>Email: </strong>{{ session.email }}</p>
+  <p><strong>User ID: </strong>{{ session.userID }}</p>
+
+</div>
+
+<div class="container" id="account-edit-button">
+  <a href="/Edit_Account/{{ session.userID }}" class="btn btn-primary">Edit Account</a>
+</div>
+{% endblock %}

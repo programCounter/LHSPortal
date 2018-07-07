@@ -14,6 +14,7 @@
   <table class="table table-hover table-dark">
     <tr>
       <th>ID</th>
+      <th>Service</th>
       <th>IP Address</th>
       <th>Port</th>
       <th>State</th>
@@ -22,7 +23,8 @@
     {% for portcheck in portcheck %}
       <tr>
         <td>{{ portcheck.id }}</td>
-        <td>{{ portcheck.IPAdress }}</td>
+        <td>{{ portcheck.ServiceName }}</td>
+        <td>{{ portcheck.IPAddress }}</td>
         <td>{{ portcheck.Port }}</td>
         <td><strong>{{ state[count[0]] }}</strong></td>
         <td><a href="editPort/{{ portcheck.id }}" class="btn btn-default pullright">Edit</a></td>
