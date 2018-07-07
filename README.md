@@ -12,7 +12,6 @@ A online portal for administration and service checking of my personal home serv
 <b>Improvements to be made:</b>
 <ol>
   <li>Name of service in ports table</li>
-  <li>Page and ability to chnage user credentials</li>
   <li>Active Services page (public page)</li>
 </ol>
 
@@ -29,4 +28,5 @@ A online portal for administration and service checking of my personal home serv
   <li>Service status and indication of when a service is down</li>
   <li>Version number or build on about page</li>
   <li>Cancel Button on port edit page</li>
+  <li>Page and ability to chnage user credentials</li>
 </ol>
