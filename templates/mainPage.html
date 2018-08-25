@@ -16,7 +16,7 @@
     {% for portcheck in portcheck %}
       <tr>
         <td>{{ portcheck.id }}</td>
-        <td>{{ portcheck.Port }}</td>
+        <td>{{ portcheck.ServiceName }}</td>
         <td><strong>{{ state[count[0]] }}</strong></td>
       </tr>
       {% if count.append(count.pop() + 1) %}{% endif %}
@@ -28,7 +28,7 @@
 
 <h3>About LHS <small>Web App</small></h3>
 <p>
-  This is a web application which is intended to show the active state of the server.
+  This is a web application which is intended to show the active state of the server and to provide tools for the server owner.
   <br />
   Services provided are free of charge and media stored on the server are for <b>personal consumption only</b> by the server owner.
   <br />
@@ -41,8 +41,8 @@
 
 <div id="main-end-text">
   <p>
-    <small>Last updated 2018-06-06</small>
+    <small>Last updated 2018-08-25</small>
   </p>
-  <p><small>Build-1-WIP</small></p>
+  <p><small>Build-3-WIP</small></p>
 </div>
 {% endblock %}

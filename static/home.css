@@ -20,7 +20,7 @@
 }
 
 table, th, td {
-  border: 1px solid black;
+
 }
 
 #add-ports {
@@ -34,4 +34,14 @@ table, th, td {
 main-end-text {
   margin: auto;
   width: 50%;
+}
+
+#DiskSpace-heading {
+  padding-top: 20px;
+}
+
+#progressBarContainer {
+  position: relative;
+  left: 180px;
+  bottom: 60px;
 }
