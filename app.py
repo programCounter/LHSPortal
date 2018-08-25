@@ -5,6 +5,7 @@ from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
 from ports import check
+from DiskSpace import CheckSpace
 
 #App definition
 app = Flask(__name__)
@@ -283,8 +284,11 @@ def Home():
             stat = check((IPs[i]["IPAddress"]), (Ports[i]["Port"]))
             state.append(stat)
             i = i + 1
-        app.logger.info('Port Check Script ran.')
-        return render_template('home.html', pagename=pagename, portcheck=portcheck, state=state, Service=Service)
+        app.logger.info('EXTERNAL SCRIPT RAN: check')
+
+        tB, tUS, tSA, disksName, usedPercent = CheckSpace()
+        app.logger.info('EXTERNAL SCRIPT RAN: CheckSpace')
+        return render_template('home.html', pagename=pagename, portcheck=portcheck, state=state, Service=Service, tB=tB, tUS=tUS, tSA=tSA, disksName=disksName, usedPercent=usedPercent)
     else:
         msg = 'NO DATA FOUND'
         app.logger.info('No ports to check, database empty or not connected?')
@@ -396,7 +400,40 @@ def deleteIP(id):
 
 @app.route('/')
 def mainPage():
-    return render_template('mainPage.html')
+
+    #Create cursor
+    cur = mysql.connection.cursor()
+
+    #Get data
+    #Service name data is not needed here. It is gathered during for loop in HTML file.
+    results = cur.execute("SELECT * FROM portcheck")
+    portcheck = cur.fetchall()
+
+    if results > 0:
+        cur.execute("SELECT IPAddress FROM portcheck")
+        IPs = []
+
+        for row in cur:
+            IPs.append(row)
+
+        cur.execute("SELECT Port FROM portcheck")
+        Ports = []
+
+        for row in cur:
+            Ports.append(row)
+
+        i = 0
+        state = []
+        for row in cur:
+            stat = check((IPs[i]["IPAddress"]), (Ports[i]["Port"]))
+            state.append(stat)
+            i = i + 1
+        app.logger.info("Port check script ran. PUBLIC")
+        return render_template('mainPage.html', portcheck=portcheck, state=state)
+    else:
+        msg = "NO DATA FOUND"
+        app.logger.info("No ports to check, database empty or not connected?")
+        return render_template('mainPage.html', pagename=pagename, msg=msg)
 
 if __name__ == '__main__':
     app.secret_key='secret123'
