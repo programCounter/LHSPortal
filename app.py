@@ -5,7 +5,10 @@ from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
 from ports import check
-from DiskSpace import CheckSpace
+#from DiskSpace import CheckSpace
+import psutil
+import time
+from SYSresources import ReadSYS
 
 #App definition
 app = Flask(__name__)
@@ -22,8 +25,12 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
 
-#Check if user is logged in
 def is_logged_in(f):
+    """
+    Checks to see if user is logged into current session.
+    If not, deniy accsess to page that calls this before render_template.
+    """
+
     @wraps(f)
     def wrap(*args, **kwargs):
         if 'logged_in' in session:
@@ -37,27 +44,26 @@ def is_logged_in(f):
 #User Login/logout
 @app.route('/login', methods=['GET', 'POST'])
 def logIn():
+    """
+    Accsess the db for user data, and crosschecks the cridentials inputed into fourm.
+    If data matches, set parameters and start session. Store user data into current session for easy accsess.
+    """
+
     pagename = ': Login'
     if request.method == 'POST':
-        #Get Form Feilds
         username = request.form['username']
         passwordCandidate = request.form['password']
 
-        #Create cursor
         cur = mysql.connection.cursor()
-
-        #Get user by username
         result = cur.execute("SELECT * FROM users WHERE username = %s", [username])
 
         if result > 0:
-            #Get stored hash
             data = cur.fetchone()
             name = data['name']
             email = data['email']
             userID = data['id']
             password = data['password']
 
-            #Compare Passwords
             if sha256_crypt.verify(passwordCandidate, password):
                 session['logged_in'] = True
                 session['username'] = username
@@ -75,7 +81,6 @@ def logIn():
                 app.logger.info('PASSWORD NOT MATCHED')
                 app.logger.info('User login failed!')
                 app.logger.info('Session data unchanged')
-            #Close MySQL connection
             cur.close()
 
         else:
@@ -89,6 +94,11 @@ def logIn():
 @app.route('/logout')
 @is_logged_in
 def logout():
+    """
+    If user calls to logout, clear the current session and flush it of user data.
+    Inform the user of the action and re-direct to login page.
+    """
+
     pagename = ': Logout'
     session.clear()
     flash('You are now logged out.', 'success')
@@ -97,7 +107,6 @@ def logout():
     return redirect(url_for('logIn'))
 
 
-#User Registration
 class RegisterForm(Form):
     name = StringField('Name', [validators.Length(min=1, max=50)])
     username = StringField('Username', [validators.Length(min=4, max=25)])
@@ -110,6 +119,11 @@ class RegisterForm(Form):
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """
+    Request account creation fourm and make connection to db.
+    Encrypt password and commit data to db and inform the user of the action.
+    """
+
     pagename = ': Register'
     form = RegisterForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -118,23 +132,14 @@ def register():
         username = form.username.data
         password = sha256_crypt.encrypt(str(form.password.data))
 
-        #Create Cursor
         cur = mysql.connection.cursor()
-
-        #Execute query
         cur.execute("INSERT INTO users(name, email, username, password) VALUES(%s, %s, %s, %s)", (name, email, username, password))
-
-        #Commit to DB
         mysql.connection.commit()
-
-        #Close connection
         cur.close()
 
-        #Flash message
         flash('You are now registered and can now login', 'success')
         app.logger.info('User has been registered and can now log in.')
 
-        #return redirect(url_for('logIn'))
     return render_template('register.html', form=form, pagename=pagename)
 
 
@@ -142,58 +147,22 @@ def register():
 @app.route('/My_Account')
 @is_logged_in
 def My_Account():
+    """
+    Returns render template for account information.
+    Information is pulled from current session.
+    """
+
     pagename = ': My Account'
-
-
     return render_template('My_Account.html', pagename=pagename)
 
-#@app.route('/My_Account_verify', methods=['GET', 'POST'])
-#@is_logged_in
-#def My_Account_verify():
-#    pagename = ': Edit Account'
-#
-#    #Confirm User
-#    if request.method == 'POST':
-#        #Get form Feilds
-#        username = request.form['username']
-#        passwordCandidate = request.form['password']
-#
-#        #Create cursor
-#        cur = mysql.connection.cursor()
-#
-#        #Get user by username
-#        result = cur.execute("SELECT * FROM users WHERE username = %s", [username])
-#
-#        if result > 0:
-#            #Get stored hash
-#            data = cur.fetchone()
-#            password = data['password']
-#
-#            #Compare Passwords
-#            if sha256_crypt.verify(passwordCandidate, password):
-#                flash('Verified!', 'success')
-#                return redirect(url_for('Edit_Account'))
-#                app.logger.info('PASSWORD MATCHED')
-#                app.logger.info('User verified. Redirecting...')
-#            else:
-#                error = 'Invalid login'
-#                return render_template('My_Account.html', error=error)
-#                app.logger.info('PASSWORD NOT MATCHED')
-#                app.logger.info('User verify FAIL')
-#            #Close MySQL connection
-#            cur.close()
-#
-#        else:
-#            error = 'Username not found'
-#            return render_template('My_Account.html', error=error)
-#            app.logger.info('NO USER')
-#            app.logger.info('User verify FAIL')
-#
-#    return render_template('My_Acount_verify.html', pagename=pagename)
 
 @app.route('/Edit_Account/<string:id>', methods=['GET', 'POST'])
 @is_logged_in
 def Edit_Account(id):
+    """
+    Create DOCSTRING HERE!
+    """
+
     pagename = ': Edit Account'
 
     #Create cursor
@@ -250,12 +219,13 @@ def Edit_Account(id):
 @app.route('/Home')
 @is_logged_in
 def Home():
+    """
+    Create DOCSTRING HERE!
+    """
+
     pagename = ': Home'
 
-    #Create cursor
     cur = mysql.connection.cursor()
-
-    #Get data
     results = cur.execute("SELECT * FROM portcheck")
     portcheck = cur.fetchall()
 
@@ -286,28 +256,33 @@ def Home():
             i = i + 1
         app.logger.info('EXTERNAL SCRIPT RAN: check')
 
-        tB, tUS, tSA, disksName, usedPercent = CheckSpace()
-        app.logger.info('EXTERNAL SCRIPT RAN: CheckSpace')
-        return render_template('home.html', pagename=pagename, portcheck=portcheck, state=state, Service=Service, tB=tB, tUS=tUS, tSA=tSA, disksName=disksName, usedPercent=usedPercent)
+        #tB, tUS, tSA, disksName, usedPercent = CheckSpace()
+        #app.logger.info('EXTERNAL SCRIPT RAN: CheckSpace')
+
+        CPUcount, ThreadCount, CPUTotalUse, CPUTotalFrequency, CPUusePerCore, RAMuse, MountedPartitions, RootDisk = ReadSYS()
+
+        return render_template('home.html', pagename=pagename, portcheck=portcheck, state=state, Service=Service, CPUcount=CPUcount, ThreadCount=ThreadCount, CPUTotalUse=CPUTotalUse, CPUTotalFrequency=CPUTotalFrequency, CPUusePerCore=CPUusePerCore, RAMuse=RAMuse, MountedPartitions=MountedPartitions, RootDisk=RootDisk)
     else:
         msg = 'NO DATA FOUND'
         app.logger.info('No ports to check, database empty or not connected?')
         return render_template('home.html', pagename=pagename, msg=msg)
 
-    #Close connection
     cur.close()
 
-
-#Adding ports
 
 class AddressForm(Form):
     IPAddress = StringField('IP Address', [validators.Length(min=1, max=50)])
     port = StringField('Port')
     ServiceName = StringField('ServiceName')
 
+
 @app.route('/addPorts', methods=['GET', 'POST'])
 @is_logged_in
 def addPorts():
+    """
+    Create DOCSTRING HERE!
+    """
+
     pagename = ': addPorts'
     form = AddressForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -315,10 +290,7 @@ def addPorts():
         port = form.port.data
         ServiceName = form.ServiceName.data
 
-        #Create Cursor
         cur = mysql.connection.cursor()
-
-        #Execute
         cur.execute("INSERT INTO portcheck(IPAddress, Port, ServiceName) VALUES(%s, %s, %s)", (IPAddress, port, ServiceName))
 
         #Commit to DB
@@ -336,6 +308,10 @@ def addPorts():
 @app.route('/editPort/<string:id>', methods=['GET', 'POST'])
 @is_logged_in
 def editPort(id):
+    """
+    Create DOCSTRING HERE!
+    """
+
     #Create cursor
     cur = mysql.connection.cursor()
 
@@ -379,6 +355,10 @@ def editPort(id):
 @app.route('/deleteIP/<string:id>', methods=['POST'])
 @is_logged_in
 def deleteIP(id):
+    """
+    Create DOCSTRING HERE!
+    """
+
     #Create cursor
     cur = mysql.connection.cursor()
 
@@ -400,6 +380,9 @@ def deleteIP(id):
 
 @app.route('/')
 def mainPage():
+    """
+    Create DOCSTRING HERE!
+    """
 
     #Create cursor
     cur = mysql.connection.cursor()
@@ -437,4 +420,4 @@ def mainPage():
 
 if __name__ == '__main__':
     app.secret_key='secret123'
-    app.run(host = '192.168.0.140', port = 5001)
+    app.run('''host = '192.168.0.140', port = 5001''')
