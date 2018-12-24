@@ -52,4 +52,11 @@ main-end-text {
   height: 110px;
   margin: 0 auto;
   text-align: center;
+  font-size: 30px;
+}
+
+.container .chart canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
