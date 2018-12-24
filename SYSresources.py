@@ -2,14 +2,14 @@ import psutil
 import time
 
 #CPU Var
-NUMofCPU = 0
-NUMofTHREAD = 0
-CPUtotal = 0.0
-CPUtotalFreq = []
-CPUperCore = []
+#NUMofCPU = 0
+#NUMofTHREAD = 0
+#CPUtotal = 0.0
+#CPUtotalFreq = []
+#CPUperCore = []
 
 #RAM Var
-VirtualMem = 0
+#VirtualMem = 0
 
 #Disk Var
 DiskPartitions = 0
