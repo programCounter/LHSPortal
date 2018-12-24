@@ -255,7 +255,9 @@ def Home():
             i = i + 1
         app.logger.info('EXTERNAL SCRIPT RAN: check')
 
-        CPUcount, ThreadCount, CPUTotalUse, CPUTotalFrequency, CPUusePerCore, RAMuse, MountedPartitions, RootDisk = ReadSYS()
+        #CPUcount, ThreadCount, CPUTotalUse, CPUTotalFrequency, CPUusePerCore, RAMuse, MountedPartitions, RootDisk = ReadSYS()
+
+        CPUcount = psutil.cpu_count(logical=False)
 
         return render_template('home.html', pagename=pagename, portcheck=portcheck, state=state, Service=Service, CPUcount=CPUcount, ThreadCount=ThreadCount, CPUTotalUse=CPUTotalUse, CPUTotalFrequency=CPUTotalFrequency, CPUusePerCore=CPUusePerCore, RAMuse=RAMuse, MountedPartitions=MountedPartitions, RootDisk=RootDisk)
     else:
