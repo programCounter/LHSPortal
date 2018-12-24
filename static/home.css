@@ -53,6 +53,7 @@ main-end-text {
   margin: 0 auto;
   text-align: center;
   font-size: 10px;
+  line-height: 110px;
 }
 
 .container .chart canvas {
