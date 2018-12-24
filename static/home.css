@@ -46,8 +46,10 @@ main-end-text {
   bottom: 60px;
 }
 
-.container .chart canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
+.container .chart {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto;
+  text-align: center;
 }
