@@ -49,15 +49,15 @@
 <div id="RAM" class="container">
 
   <p>Number of Physical Cores:  {{ SYSdata['NUMofCPU'] }}</p>
-  <p>Number of Logical Cores: {{ SYSdata.ThreadCount }}</p>
-  <p>Current CPU Useage: {{ SYSdata.CPUTotalUse }}</p>
-  <p>Current CPU Frequency: {{ SYSdata.CPUtotalFreq }}</p>
+  <p>Number of Logical Cores: {{ SYSdata['NUMofTHREAD'] }}</p>
+  <p>Current CPU Useage: {{ SYSdata['CPUtotal'] }}</p>
+  <p>Current CPU Frequency: {{ SYSdata['CPUtotalFreq'] }}</p>
 
 </div>
 
 <div id="CPU" class="container">
 
-  {{ RAMuse }}
+  {{ SYSdata['VirtualMem'] }}
 
 </div>
 

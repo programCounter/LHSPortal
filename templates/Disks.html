@@ -2,15 +2,15 @@
 
 <div id="DiskSpace" class="container">
   <h3 id="DiskSpace-heading"><small>LHS and LHSWeb Disks</small></h3>
-<!--
-  {% set count = [0] %}
-  {% for MountedPartitions in MountedPartitions %}
 
-  {{ "Disk Name: " % MountedPartitions[count[0]] }}
+  {% set count = [0] %}
+  {% for SYSdata['DiskPartitions'] in SYSdata['DiskPartitions'] %}
+
+  {{ "Disk Name: " % SYSdata['DiskPartitions[count[0]]'] }}
 
   {% if count.append(count.pop() + 1) %}{% endif %}
   {% endfor %}
 
   {{ RootDisk }}
--->
+
 </div>
