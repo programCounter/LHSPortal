@@ -46,7 +46,7 @@ main-end-text {
   bottom: 60px;
 }
 
-#percentText {
+.container .chart canvas {
   position: absolute;
   top: 0;
   left: 0;
