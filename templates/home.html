@@ -43,15 +43,8 @@
   </div>
 
 </div>
-
-<div id="DiskSpace" class="container">
-  <h3 id="DiskSpace-heading"><small>LHS and LHSWeb Disks</small></h3>
-
-  {% set count = [0] %}
-  {% for MountedPartitions in MountedPartitions %}
-  {{ "Disk Name: " % MountedPartitions[count[0]] }}
-
-</div>
+{% block Disks %}
+{% endblock %}
 
 <div id="RAM" class="container">
 
@@ -65,7 +58,7 @@
 <div id="CPU" class="container">
 
   {{ RAMuse }}
-  
+
 </div>
 
 <!--

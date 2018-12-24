@@ -1,11 +1,10 @@
 #Include nessesary libraries
-from flask import Flask, render_template, flash, redirect, url_for, session, logging, request
+from flask import Flask, render_template, flash, redirect, url_for, session, logging, jsonify, request
 from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
 from ports import check
-#from DiskSpace import CheckSpace
 import psutil
 import time
 from SYSresources import ReadSYS
@@ -256,9 +255,6 @@ def Home():
             i = i + 1
         app.logger.info('EXTERNAL SCRIPT RAN: check')
 
-        #tB, tUS, tSA, disksName, usedPercent = CheckSpace()
-        #app.logger.info('EXTERNAL SCRIPT RAN: CheckSpace')
-
         CPUcount, ThreadCount, CPUTotalUse, CPUTotalFrequency, CPUusePerCore, RAMuse, MountedPartitions, RootDisk = ReadSYS()
 
         return render_template('home.html', pagename=pagename, portcheck=portcheck, state=state, Service=Service, CPUcount=CPUcount, ThreadCount=ThreadCount, CPUTotalUse=CPUTotalUse, CPUTotalFrequency=CPUTotalFrequency, CPUusePerCore=CPUusePerCore, RAMuse=RAMuse, MountedPartitions=MountedPartitions, RootDisk=RootDisk)
@@ -420,4 +416,4 @@ def mainPage():
 
 if __name__ == '__main__':
     app.secret_key='secret123'
-    app.run('''host = '192.168.0.140', port = 5001''')
+    app.run(host = '192.168.0.130', port = 5001)
