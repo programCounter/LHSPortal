@@ -57,6 +57,6 @@ main-end-text {
 
 .container .chart canvas {
   position: absolute;
-  top: 0;
+  top: 10;
   left: 0;
 }
