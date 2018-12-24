@@ -412,7 +412,7 @@ def mainPage():
     else:
         msg = "NO DATA FOUND"
         app.logger.info("No ports to check, database empty or not connected?")
-        return render_template('mainPage.html', pagename=pagename, msg=msg)
+        return render_template('mainPage.html', msg=msg)
 
 if __name__ == '__main__':
     app.secret_key='secret123'
