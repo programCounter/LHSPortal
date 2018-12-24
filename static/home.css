@@ -46,17 +46,17 @@ main-end-text {
   bottom: 60px;
 }
 
-.container{
+.RAMplot{
   width: 2000px;
   margin: 300 auto;
 }
 
-.container .box{
+.RAMplot .box{
   width: 25%;
   float: left;
 }
 
-.container .box .chart{
+.RAMplot .box .chart{
   position: relative;
   heigh: 110px;
   width: 110px;
@@ -66,7 +66,7 @@ main-end-text {
   line-height: 110px;
 }
 
-.container .box canvas{
+.RAMplot .box canvas{
   position: absolute;
   top: 0;
   left: 0;

@@ -6,14 +6,6 @@
 <!--
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 -->
-    <script src="/static/jquery.easypiechart.js"></script>
-    <script>
-    $(function() {
-          $('.chart').easyPieChart({
-              //your options goes here
-          });
-      });
-    </script>
     <link href="/static/Darkly.css" rel="stylesheet" type="text/css" />
     <link href="/static/home.css" rel="stylesheet" type="text/css" />
     <link rel = "shortcut icon" href = "/static/v2.png" />
@@ -29,6 +21,14 @@
       {% endblock %}
     </div>
 
+    <script src="/static/jquery.easypiechart.js"></script>
+    <script>
+    $(function() {
+          $('.chart').easyPieChart({
+              //your options goes here
+          });
+      });
+    </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
   </body>
