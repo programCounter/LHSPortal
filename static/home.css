@@ -45,3 +45,13 @@ main-end-text {
   left: 180px;
   bottom: 60px;
 }
+
+.container{
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.container .box{
+  width: 25%;
+  float: left;
+}
