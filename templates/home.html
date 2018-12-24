@@ -48,7 +48,7 @@
 
 <div id="RAM" class="container">
 
-  <p>Number of Physical Cores:  {{ SYSdata }}</p>
+  <p>Number of Physical Cores:  {{ SYSdata[NUMofCPU] }}</p>
   <p>Number of Logical Cores: {{ SYSdata.ThreadCount }}</p>
   <p>Current CPU Useage: {{ SYSdata.CPUTotalUse }}</p>
   <p>Current CPU Frequency: {{ SYSdata.CPUtotalFreq }}</p>
