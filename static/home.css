@@ -66,7 +66,7 @@ main-end-text {
   line-height: 110px;
 }
 
-.container .box .chart canvas{
+.container .box canvas{
   position: absolute;
   top: 0;
   left: 0;
