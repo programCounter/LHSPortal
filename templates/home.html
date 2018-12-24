@@ -56,10 +56,10 @@
 
 <div id="CPU" class="container">
 
-  {{ SYSdata['VirtualMem'].total }}
-  {{ SYSdata['VirtualMem'].available }}
-  {{ SYSdata['VirtualMem'].used }}
-  {{ SYSdata['VirtualMem'].percent }}
+  <p>Total Installed RAM: {{ SYSdata['VirtualMem'].total }} bytes</p>
+  <p>Avaliable RAM: {{ SYSdata['VirtualMem'].available }} bytes</p>
+  <p>Used RAM: {{ SYSdata['VirtualMem'].used }} bytes</p>
+  <p>Percent Used RAM: {{ SYSdata['VirtualMem'].percent }}%</p>
 
 </div>
 
