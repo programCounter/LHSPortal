@@ -51,4 +51,4 @@ def ReadSYS():
     GetRAM()
     GetDisks()
 
-    return('NUMofCPU':NUMofCPU, 'NUMofTHREAD':NUMofTHREAD, 'CPUtotal':CPUtotal, 'CPUtotalFreq':CPUtotalFreq, 'CPUperCore':CPUperCore, 'VirtualMem':VirtualMem, 'DiskPartitions':DiskPartitions, 'RootDiskUse':RootDiskUse)
+    return{ 'NUMofCPU':NUMofCPU, 'NUMofTHREAD':NUMofTHREAD, 'CPUtotal':CPUtotal, 'CPUtotalFreq':CPUtotalFreq, 'CPUperCore':CPUperCore, 'VirtualMem':VirtualMem, 'DiskPartitions':DiskPartitions, 'RootDiskUse':RootDiskUse }
