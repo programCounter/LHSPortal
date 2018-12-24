@@ -55,3 +55,19 @@ main-end-text {
   width: 25%;
   float: left;
 }
+
+.container .box .chart{
+  position: relative;
+  heigh: 110px;
+  width: 110px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 30px;
+  line-height: 110px;
+}
+
+.container .box .canvas{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
