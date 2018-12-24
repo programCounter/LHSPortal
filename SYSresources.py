@@ -58,4 +58,4 @@ def ReadSYS():
     RootDiskUse = psutil.disk_usage('/') #Provide disk path
 
 
-    return{ 'NUMofCPU':NUMofCPU, 'NUMofTHREAD':NUMofTHREAD, 'CPUtotal':CPUtotal, 'CPUtotalFreq':CPUtotalFreq, 'CPUperCore':CPUperCore, 'VirtualMem':VirtualMem, 'DiskPartitions':DiskPartitions, 'RootDiskUse':RootDiskUse }
+    return{ 'NUMofCPU':NUMofCPU, 'NUMofTHREAD':NUMofTHREAD, 'CPUtotal':CPUtotal, 'CPUperCore':CPUperCore, 'VirtualMem':VirtualMem, 'DiskPartitions':DiskPartitions, 'RootDiskUse':RootDiskUse }
