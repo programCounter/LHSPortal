@@ -154,3 +154,24 @@ main-end-text {
       vertical-align: super;
     }
   }
+
+  .pie-wrapper--solid {
+  border-radius: 50%;
+  overflow: hidden;
+
+  &:before {
+    border-radius: 0 100% 100% 0 / 50%;
+    content: '';
+    display: block;
+    height: 100%;
+    margin-left: 50%;
+    transform-origin: left;
+  }
+
+  .label {
+    background: transparent;
+  }
+
+  &.progress-88 {
+  @include draw-progress--solid(50, #3498db, $bg-color);
+}
