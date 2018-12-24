@@ -45,29 +45,3 @@ main-end-text {
   left: 180px;
   bottom: 60px;
 }
-
-.RAMplot{
-  width: 2000px;
-  margin: 300 auto;
-}
-
-.RAMplot .box{
-  width: 25%;
-  float: left;
-}
-
-.RAMplot .box .chart{
-  position: relative;
-  heigh: 110px;
-  width: 110px;
-  margin: 0 auto;
-  text-align: center;
-  font-size: 30px;
-  line-height: 110px;
-}
-
-.RAMplot .box canvas{
-  position: absolute;
-  top: 0;
-  left: 0;
-}
