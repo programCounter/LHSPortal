@@ -255,13 +255,13 @@ def Home():
             i = i + 1
         app.logger.info('EXTERNAL SCRIPT RAN: check')
 
-        CPUcount = psutil.cpu_count(logical=False)
+        CPUcount, ThreadCount, CPUTotalUse, CPUTotalFrequency, CPUusePerCore, RAMuse, MountedPartitions, RootDisk = ReadSYS()
 
         return render_template('home.html', pagename=pagename, portcheck=portcheck, state=state, Service=Service, CPUcount=CPUcount, ThreadCount=ThreadCount, CPUTotalUse=CPUTotalUse, CPUTotalFrequency=CPUTotalFrequency, CPUusePerCore=CPUusePerCore, RAMuse=RAMuse, MountedPartitions=MountedPartitions, RootDisk=RootDisk)
     else:
         msg = 'NO DATA FOUND'
         app.logger.info('No ports to check, database empty or not connected?')
-        return render_template('home.html', pagename=pagename, msg=msg)
+        return render_template('home.html', pagename=pagename, msg=msg, CPUcount=CPUcount, ThreadCount=ThreadCount, CPUTotalUse=CPUTotalUse, CPUTotalFrequency=CPUTotalFrequency, CPUusePerCore=CPUusePerCore, RAMuse=RAMuse, MountedPartitions=MountedPartitions, RootDisk=RootDisk)
 
     cur.close()
 
