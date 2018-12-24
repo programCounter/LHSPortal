@@ -259,7 +259,7 @@ def Home():
 
         return render_template('home.html', pagename=pagename, portcheck=portcheck, state=state, Service=Service, CPUcount=CPUcount, ThreadCount=ThreadCount, CPUTotalUse=CPUTotalUse, CPUTotalFrequency=CPUTotalFrequency, CPUusePerCore=CPUusePerCore, RAMuse=RAMuse, MountedPartitions=MountedPartitions, RootDisk=RootDisk)
     else:
-        SYSdata = ReadSYS()
+        SYSdata = psutil.cpu_count(logical=False)
         msg = 'NO DATA FOUND'
         app.logger.info('No ports to check, database empty or not connected?')
         return render_template('home.html', pagename=pagename, msg=msg, SYSdata=SYSdata)
