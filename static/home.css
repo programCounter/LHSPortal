@@ -58,8 +58,7 @@ main-end-text {
 }
 
 #CPU-total-indicator {
-  float: left;
-  padding-right: 20px;
+  margin-left: 35px;
   padding-top: 50px;
   padding-bottom: 50px;
 }
