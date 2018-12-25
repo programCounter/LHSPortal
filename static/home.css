@@ -47,14 +47,14 @@ main-end-text {
 }
 
 #CPU-Threaduse {
-  float: left;
+  margin-left: 35px;
   padding-right: 20px;
   padding-top: 50px;
   padding-bottom: 50px;
 }
 
 #CPU-Threaduse-indicator {
-  margin-left: 35px;
+
 }
 
 #CPU-total-indicator {
