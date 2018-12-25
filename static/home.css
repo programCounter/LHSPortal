@@ -54,12 +54,16 @@ main-end-text {
 }
 
 #CPU-Threaduse-indicator {
-  margin-right: 35px;
+  
 }
 
 #CPU-total-indicator {
   padding-top: 10px;
   padding-bottom: 50px;
+}
+
+#RAM-Data {
+  padding-left: 20px;
 }
 
 .container .chart {
