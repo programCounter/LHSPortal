@@ -59,7 +59,7 @@ main-end-text {
 }
 
 #Data {
-  Position:relative;
+  Position: absolute;
   padding-left: 20px;
 }
 
