@@ -50,10 +50,13 @@ main-end-text {
   float: left;
   padding-right: 20px;
   padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 #CPU-Threaduse-indicator {
   margin-right: 35px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 #CPU-total-indicator {
