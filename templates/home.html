@@ -66,9 +66,9 @@
     <h3 id="ports-heading"><small>RAM Usage</small></h3>
     <div class="chart" data-percent="{{ SYSdata['VirtualMem'].percent }}">RAM Used:<br>{{ SYSdata['VirtualMem'].percent }}%</div>
     <div id="Data">
-      <p>Total Installed RAM: {% round(SYSdata['VirtualMem'].total / 1000000000, 2) %} GB</p>
-      <p>Avaliable RAM: {% round(SYSdata['VirtualMem'].available / 1000000000, 2) %} GB</p>
-      <p>Used RAM: {% round(SYSdata['VirtualMem'].used / 1000000000, 2) %} GB</p>
+      <p>Total Installed RAM: {{ (SYSdata['VirtualMem'].total / 1000000000)|round(2) }} GB</p>
+      <p>Avaliable RAM: {{ (SYSdata['VirtualMem'].available / 1000000000)|round(2) }} GB</p>
+      <p>Used RAM: {{ (SYSdata['VirtualMem'].used / 1000000000)|round(2) }} GB</p>
     </div>
   </div>
 </div>
