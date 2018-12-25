@@ -47,7 +47,7 @@ main-end-text {
 }
 
 #CPU-Threaduse {
-  flex: 1;
+  flex-wrap: wrap
 }
 
 .container .chart {
