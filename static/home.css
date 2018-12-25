@@ -47,7 +47,7 @@ main-end-text {
 }
 
 #CPU-Threaduse {
-  flex-wrap: wrap
+  flex-grow: 1;
 }
 
 .container .chart {
@@ -58,7 +58,6 @@ main-end-text {
   text-align: center;
   font-size: 15px;
   padding-top: 35px;
-  flex-grow: 1
 }
 
 .container .chart canvas {
