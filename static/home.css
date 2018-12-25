@@ -59,7 +59,8 @@ main-end-text {
 }
 
 #Data {
-  float: left;
+  Position:relative;
+  padding-left: 20px;
 }
 
 .container .chart {
