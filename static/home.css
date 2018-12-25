@@ -48,7 +48,6 @@ main-end-text {
 
 #CPU-Threaduse {
   float: left;
-  margin-left: 35px;
   padding-right: 20px;
   padding-top: 50px;
   padding-bottom: 50px;
@@ -59,7 +58,8 @@ main-end-text {
 }
 
 #CPU-total-indicator {
-  margin-left: 35px;
+  float: left;
+  padding-right: 20px;
   padding-top: 50px;
   padding-bottom: 50px;
 }
