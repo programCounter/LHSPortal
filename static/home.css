@@ -46,8 +46,12 @@ main-end-text {
   bottom: 60px;
 }
 
-#CPU-Threaduse-indicator {
+#CPU-Threaduse {
   float: left;
+  padding-right: 20px;
+}
+
+#CPU-Threaduse-indicator {
   padding-right: 20px;
 }
 
