@@ -46,9 +46,6 @@ main-end-text {
   bottom: 60px;
 }
 
-#CPU-Threaduse {
-  float: left;
-}
 
 .container .chart {
   float: left;
