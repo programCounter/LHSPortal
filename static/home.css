@@ -61,7 +61,8 @@ main-end-text {
 #Data {
   Position: absolute;
   padding-left: 225px;
-  padding-top: 60px;
+  padding-top: 50px;
+  text-align: center;
 }
 
 .container .chart {
