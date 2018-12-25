@@ -53,7 +53,7 @@
   <p>Number of Physical Cores:  {{ SYSdata['NUMofCPU'] }}</p>
   <p>Number of Logical Cores: {{ SYSdata['NUMofTHREAD'] }}</p>
   <p>Current CPU Useage: {{ SYSdata['CPUtotal'] }}</p>
-  <div id="CPU-Threaduse" class="chart" data-percent="{{ SYSdata['CPUtotal'] }}">Total CPU Use:<br>{{ SYSdata['CPUtotal'] }}%</div>
+  <div id="CPU-Threaduse-indicator" class="chart" data-percent="{{ SYSdata['CPUtotal'] }}">Total CPU Use:<br>{{ SYSdata['CPUtotal'] }}%</div>
 
   <p>Current CPU Useage per Core: {{ SYSdata['CPUperCore'][0] }}</p>
     <div id="CPU-Threaduse" class="container">
