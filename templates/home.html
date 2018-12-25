@@ -3,9 +3,6 @@
 {% block body %}
 <h1 id="home-title">Home <small>Welcome {{session.username}}</small></h1>
 
-<!--
-<h3 id="power-state-heading"><small>Servers Power States</small></h3>
--->
 
 <h3 id="ports-heading"><small>Ports and Services</small></h3>
 
@@ -51,10 +48,8 @@
 
 <h3 id="ports-heading"><small>CPU Usage</small></h3>
 <div class="chart" data-percent="{{ SYSdata['CPUtotal'] }}">Total CPU Use:<br>{{ SYSdata['CPUtotal'] }}%</div>
-<div id="Data">
   <p>Number of Physical Cores:  {{ SYSdata['NUMofCPU'] }}</p>
   <p>Number of Logical Cores: {{ SYSdata['NUMofTHREAD'] }}</p>
-</div>
 
 <div id="CPU-Threaduse" class="container">
   <h3 id="ports-heading"><small>CPU Usage per Thread</small></h3>
