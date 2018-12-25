@@ -48,7 +48,7 @@
 {% block Disks %}
 {% endblock %}
 
-
+<h3 id="ports-heading"><small>CPU Usage</small></h3>
 <div id="CPU" class="container">
   <!--
   <p>Number of Physical Cores:  {{ SYSdata['NUMofCPU'] }}</p>
@@ -61,11 +61,12 @@
 <!--
   <p>Current CPU Useage per Core: {{ SYSdata['CPUperCore'][0] }}</p>
   -->
-    <div id="CPU-Threaduse" class="container">
-      {% for x in range(1, SYSdata['NUMofTHREAD']) %}
-        <div id="CPU-Threaduse-indicator" class="chart" data-percent="{{ SYSdata['CPUperCore'][x] }}">Thread {{ x }} Use:<br>{{ SYSdata['CPUperCore'][x] }}%</div>
-      {% endfor %}
-    </div>
+  <h3 id="ports-heading"><small>CPU Usage per Thread</small></h3>
+  <div id="CPU-Threaduse" class="container">
+    {% for x in range(1, SYSdata['NUMofTHREAD']) %}
+      <div id="CPU-Threaduse-indicator" class="chart" data-percent="{{ SYSdata['CPUperCore'][x] }}">Thread {{ x }} Use:<br>{{ SYSdata['CPUperCore'][x] }}%</div>
+    {% endfor %}
+  </div>
 </div>
 
 
@@ -76,12 +77,14 @@
   <p>Used RAM: {{ SYSdata['VirtualMem'].used }} bytes</p>
   <p>Percent Used RAM: {{ SYSdata['VirtualMem'].percent }}%</p>
   -->
+  <h3 id="ports-heading"><small>RAM Usage</small></h3>
+  <div id="CPU-Threaduse" class="container">
+    <div class="chart" data-percent="{{ SYSdata['VirtualMem'].percent }}">RAM Used:<br>{{ SYSdata['VirtualMem'].percent }}%</div>
+  </div>
 </div>
 
 
-<div id="RAM-RAMuse" class="container">
-  <div class="chart" data-percent="{{ SYSdata['VirtualMem'].percent }}">RAM Used:<br>{{ SYSdata['VirtualMem'].percent }}%</div>
-</div>
+
 
 <!--
 <div id="portChanges" class="container">
