@@ -57,6 +57,7 @@ main-end-text {
 
 .container .chart canvas {
   position: absolute;
-  top: -110;
+  top: 0;
   left: 0;
+  line-height: 110px;
 }
