@@ -55,10 +55,11 @@ main-end-text {
 
 #CPU-Threaduse-indicator {
   margin-right: 35px;
+  display: inline-block
 }
 
 #CPU-total-indicator {
-  float: right;
+  text-align: center;
   padding-top: 50px;
   padding-bottom: 50px;
 }
