@@ -46,6 +46,10 @@ main-end-text {
   bottom: 60px;
 }
 
+#CPU {
+  padding-top: 20px;
+}
+
 #CPU-Threaduse {
   float: left;
   padding-right: 20px;
