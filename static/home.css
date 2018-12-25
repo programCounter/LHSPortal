@@ -47,7 +47,7 @@ main-end-text {
 }
 
 #CPU-Threaduse {
-  flex-grow: 1;
+  flex: auto;
 }
 
 .container .chart {
@@ -64,4 +64,5 @@ main-end-text {
   position: absolute;
   top: 0;
   left: 0;
+  flex-grow: 1;
 }
