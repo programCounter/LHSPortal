@@ -50,14 +50,17 @@
 
 
 <div id="CPU" class="container">
+  <!--
   <p>Number of Physical Cores:  {{ SYSdata['NUMofCPU'] }}</p>
   <p>Number of Logical Cores: {{ SYSdata['NUMofTHREAD'] }}</p>
   <p>Current CPU Useage: {{ SYSdata['CPUtotal'] }}</p>
+  -->
   <div id="CPU-total-indicator">
     <div id="CPU-Threaduse-indicator" class="chart" data-percent="{{ SYSdata['CPUtotal'] }}">Total CPU Use:<br>{{ SYSdata['CPUtotal'] }}%</div>
   </div>
-
+<!--
   <p>Current CPU Useage per Core: {{ SYSdata['CPUperCore'][0] }}</p>
+  -->
     <div id="CPU-Threaduse" class="container">
       {% for x in range(1, SYSdata['NUMofTHREAD']) %}
         <div id="CPU-Threaduse-indicator" class="chart" data-percent="{{ SYSdata['CPUperCore'][x] }}">Thread {{ x }} Use:<br>{{ SYSdata['CPUperCore'][x] }}%</div>
@@ -67,10 +70,12 @@
 
 
 <div id="RAM" class="container">
+  <!--
   <p>Total Installed RAM: {{ SYSdata['VirtualMem'].total }} bytes</p>
   <p>Avaliable RAM: {{ SYSdata['VirtualMem'].available }} bytes</p>
   <p>Used RAM: {{ SYSdata['VirtualMem'].used }} bytes</p>
   <p>Percent Used RAM: {{ SYSdata['VirtualMem'].percent }}%</p>
+  -->
 </div>
 
 
