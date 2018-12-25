@@ -46,6 +46,10 @@ main-end-text {
   bottom: 60px;
 }
 
+#CPU-Threaduse {
+  align-items: center;
+}
+
 .container .chart {
   position: relative;
   width: 110px;
