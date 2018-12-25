@@ -54,8 +54,12 @@ main-end-text {
 
 #CPU-Threaduse-indicator {
   margin-right: 35px;
-  height: 200px;
-  width: 200px;
+}
+
+#CPU-total-indicator {
+  margin: auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .container .chart {
