@@ -53,11 +53,11 @@ main-end-text {
   margin: 0 auto;
   text-align: center;
   font-size: 15px;
+  padding-top: 50px;
 }
 
 .container .chart canvas {
   position: absolute;
   top: 0;
   left: 0;
-  height: 100px;
 }
