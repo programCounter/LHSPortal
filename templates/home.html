@@ -62,15 +62,15 @@
 </div>
 
 <div id="RAM" class="container">
-
-  <h3 id="ports-heading"><small>RAM Usage</small></h3>
-  <div class="chart" data-percent="{{ SYSdata['VirtualMem'].percent }}">RAM Used:<br>{{ SYSdata['VirtualMem'].percent }}%</div>
-  <div id="Data">
-    <p>Total Installed RAM: {{ SYSdata['VirtualMem'].total }} bytes</p>
-    <p>Avaliable RAM: {{ SYSdata['VirtualMem'].available }} bytes</p>
-    <p>Used RAM: {{ SYSdata['VirtualMem'].used }} bytes</p>
+  <div id="CPU-Threaduse" class="container">
+    <h3 id="ports-heading"><small>RAM Usage</small></h3>
+    <div class="chart" data-percent="{{ SYSdata['VirtualMem'].percent }}">RAM Used:<br>{{ SYSdata['VirtualMem'].percent }}%</div>
+    <div id="Data">
+      <p>Total Installed RAM: {{ SYSdata['VirtualMem'].total }} bytes</p>
+      <p>Avaliable RAM: {{ SYSdata['VirtualMem'].available }} bytes</p>
+      <p>Used RAM: {{ SYSdata['VirtualMem'].used }} bytes</p>
+    </div>
   </div>
-
 </div>
 
 
