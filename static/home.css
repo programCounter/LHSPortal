@@ -47,7 +47,7 @@ main-end-text {
 }
 
 #CPU-Threaduse {
-  align-items: center;
+  flex: 1;
 }
 
 .container .chart {
