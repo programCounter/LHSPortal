@@ -59,5 +59,6 @@ main-end-text {
   position: absolute;
   top: 0;
   left: 0;
+  height: 100px;
   margin-bottom: 100px;
 }
